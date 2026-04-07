@@ -7,7 +7,7 @@ import autoprefixer from "autoprefixer";
 export default defineConfig({
   plugins: [react()],
   // ВАЖНО: Добавь эту строку для деплоя на GitHub Pages
-  base: "/brickcars/",
+  base: "/BrickCars/",
   css: {
     postcss: {
       plugins: [tailwindcss(), autoprefixer()],
