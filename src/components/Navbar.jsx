@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ShoppingBag, Menu, X } from "lucide-react";
+// 1. ИМПОРТИРУЕМ ЛОГОТИП (Vite сам подставит правильный путь при билде)
+import logoImg from "../assets/logo.png";
 
 const Navbar = ({ cartCount, onOpenCart }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -40,14 +42,14 @@ const Navbar = ({ cartCount, onOpenCart }) => {
           >
             <div className="relative h-full flex items-center">
               <img
-                src="/src/assets/logo.png"
+                // 2. ИСПОЛЬЗУЕМ ИМПОРТИРОВАННУЮ ПЕРЕМЕННУЮ
+                src={logoImg}
                 alt="BrickCars"
                 className="h-10 md:h-14 w-auto object-contain drop-shadow-[0_0_15px_rgba(255,30,30,0.5)] group-hover:drop-shadow-[0_0_20px_rgba(255,30,30,0.8)] transition-all duration-500"
               />
             </div>
 
             <div className="flex flex-col leading-none">
-              {/* УБРАН group-hover:text-[#FFD700] */}
               <h1 className="font-orbitron font-black italic text-xl md:text-2xl tracking-tighter text-white transition-colors duration-300">
                 BRICK
                 <span className="text-[#FF1E1E]">CARS</span>
@@ -56,7 +58,7 @@ const Navbar = ({ cartCount, onOpenCart }) => {
           </Link>
         </div>
 
-        {/* ЦЕНТРАЛЬНАЯ НАВИГАЦИЯ (Абсолютное центрирование экрана) */}
+        {/* ЦЕНТРАЛЬНАЯ НАВИГАЦИЯ */}
         <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-12">
           <Link
             to="/"

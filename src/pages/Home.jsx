@@ -3,6 +3,12 @@ import { ArrowRight, Trophy, Zap, ShieldCheck } from "lucide-react";
 import ModelView from "../components/ModelView";
 
 const Home = () => {
+  // Универсальный путь к модели, который учитывает base URL (для GitHub Pages)
+  const carModelPath = `${import.meta.env.BASE_URL}models/car.glb`.replace(
+    /\/+/g,
+    "/",
+  );
+
   return (
     <div className="pt-20 bg-[#050505] min-h-screen relative overflow-hidden">
       {/* ТЕХНОГЕННЫЙ ФОН (Статичный) */}
@@ -49,12 +55,13 @@ const Home = () => {
           </h1>
         </div>
 
-        {/* 3D MODEL BLOCK — Сильно подтянут вверх через -mt-28 */}
+        {/* 3D MODEL BLOCK */}
         <div className="w-full max-w-5xl h-[280px] md:h-[420px] -mt-16 md:-mt-28 relative z-20 animate-in zoom-in-95 duration-1000">
-          <ModelView modelPath="/models/car.glb" />
+          {/* ИСПОЛЬЗУЕМ ИСПРАВЛЕННЫЙ ПУТЬ */}
+          <ModelView modelPath={carModelPath} />
         </div>
 
-        {/* DESCRIPTION & CTA — Подтянуты ближе к машине */}
+        {/* DESCRIPTION & CTA */}
         <div className="text-center z-30 -mt-6 md:-mt-10">
           <div className="max-w-md mx-auto mb-8">
             <p className="text-gray-500 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium leading-relaxed">
