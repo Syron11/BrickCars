@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-red: #FF1E1E;
+  --color-brand-black: #050505;
+  --color-brand-dark: #0F0F0F;
+  --color-brand-yellow: #FFD700;
+  --color-brand-gray: #1A1A1A;
+  --font-orbitron: "Orbitron", sans-serif;
+  --font-inter: "Inter", sans-serif;
+}
+
+body {
+  background-color: var(--color-brand-black);
+  background-image: radial-gradient(circle at 50% 50%, #111 0%, #050505 100%);
+  color: white;
+  margin: 0;
+  font-family: var(--font-inter);
+}
+
+/* Эффект свечения для карточек и текста */
+.glow-text {
+  text-shadow: 0 0 20px rgba(255, 30, 30, 0.5);
+}
+
+.glass-card {
+  background: linear-gradient(145deg, #0f0f0f 0%, #050505 100%);
+  border: 1px solid #1a1a1a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
