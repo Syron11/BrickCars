@@ -1,6 +1,6 @@
 import { X, Plus, Minus, Trash2, ShoppingBag } from "lucide-react";
 
-const Cart = ({ isOpen, onClose, items, updateQty, removeItem }) => {
+const Cart = ({ isOpen, onClose, items, updateQty, removeItem, clearCart }) => {
   // Расчет общей суммы всей корзины
   const total = items.reduce((sum, item) => sum + item.price * item.qty, 0);
 
@@ -11,7 +11,7 @@ const Cart = ({ isOpen, onClose, items, updateQty, removeItem }) => {
 
   // Функция отправки заказа в WhatsApp
   const checkoutWhatsApp = () => {
-    const phoneNumber = "77777777777"; // ЗАМЕНИ НА СВОЙ НОМЕР БЕЗ + (например: 77071234567)
+    const phoneNumber = "77471643704"; // ЗАМЕНИ НА СВОЙ НОМЕР БЕЗ + (например: 77071234567)
 
     // Формируем список товаров с детализацией: Цена за шт x Кол-во — Сумма
     const itemsList = items
@@ -21,13 +21,19 @@ const Cart = ({ isOpen, onClose, items, updateQty, removeItem }) => {
       })
       .join("\n\n");
 
-    const finalText = `*НОВЫЙ ЗАКАЗ (GRID LEGENDS)*\n\n${itemsList}\n\n*--------------------*\n*ИТОГО К ОПЛАТЕ: ${formatPrice(total)}*\n\n📍 Доставка: Казахстан\n📦 Проверьте наличие и детали сборки.`;
+    const finalText = `*НОВЫЙ ЗАКАЗ (Brick Cars)*\n\n${itemsList}\n\n*--------------------*\n*ИТОГО К ОПЛАТЕ: ${formatPrice(total)}*\n\n📍 Доставка: Казахстан\n📦 Проверьте наличие и детали сборки.`;
 
     // Открываем WhatsApp в новой вкладке
     window.open(
       `https://wa.me/${phoneNumber}?text=${encodeURIComponent(finalText)}`,
       "_blank",
     );
+
+    // 2. Очищаем корзину (ДОБАВЛЕНО)
+    clearCart();
+
+    // 3. Закрываем корзину (ДОБАВЛЕНО для удобства)
+    onClose();
   };
 
   if (!isOpen) return null;

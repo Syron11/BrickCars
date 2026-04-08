@@ -18,6 +18,11 @@ function App() {
     const savedCart = localStorage.getItem("brick-cars-cart");
     return savedCart ? JSON.parse(savedCart) : [];
   });
+
+  const clearCart = () => {
+    setCart([]);
+  };
+
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
@@ -38,6 +43,7 @@ function App() {
     // Автоматически открываем корзину при добавлении для фидбека пользователю
     setIsCartOpen(true);
   };
+  
 
   // Изменение количества товара (+ / -)
   const updateQty = (id, delta) => {
@@ -86,6 +92,7 @@ function App() {
         items={cart}
         updateQty={updateQty}
         removeItem={removeItem}
+        clearCart={clearCart}
       />
     </div>
   );
