@@ -104,27 +104,7 @@ const ProductDetails = ({ addToCart }) => {
             <ShoppingBag className="w-5 h-5" /> Добавить в коллекцию
           </button>
 
-          {/* Дополнительные плашки */}
-          <div className="grid grid-cols-3 gap-4 mt-12">
-            <div className="flex flex-col items-center text-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-gray-600" />
-              <span className="text-[8px] uppercase text-gray-500 tracking-tighter">
-                Официальная Лицензия
-              </span>
-            </div>
-            <div className="flex flex-col items-center text-center gap-2">
-              <Truck className="w-5 h-5 text-gray-600" />
-              <span className="text-[8px] uppercase text-gray-500 tracking-tighter">
-                Доставка по РК
-              </span>
-            </div>
-            <div className="flex flex-col items-center text-center gap-2">
-              <RotateCcw className="w-5 h-5 text-gray-600" />
-              <span className="text-[8px] uppercase text-gray-500 tracking-tighter">
-                14 дней на возврат
-              </span>
-            </div>
-          </div>
+
         </div>
       </div>
     </div>
