@@ -19,7 +19,7 @@ const ProductCard = ({ product, addToCart }) => (
       <img
         src={product.image}
         alt={product.name}
-        className="w-full h-full object-contain p-6 transition-transform duration-700 group-hover:scale-110 relative z-10"
+        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 relative z-10"
       />
 
       {/* Фоновый текст категории (для стиля) */}

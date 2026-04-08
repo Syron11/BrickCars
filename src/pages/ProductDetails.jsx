@@ -53,7 +53,7 @@ const ProductDetails = ({ addToCart }) => {
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110 relative z-10"
+            className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 relative z-10"
           />
         </div>
 
@@ -103,8 +103,6 @@ const ProductDetails = ({ addToCart }) => {
           >
             <ShoppingBag className="w-5 h-5" /> Добавить в коллекцию
           </button>
-
-
         </div>
       </div>
     </div>
