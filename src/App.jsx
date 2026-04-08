@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 // Импорт компонентов
@@ -14,8 +14,15 @@ import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   // Состояние корзины
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem("brick-cars-cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("brick-cars-cart", JSON.stringify(cart));
+  }, [cart]);
 
   // Функция добавления товара в корзину
   const addToCart = (product) => {
