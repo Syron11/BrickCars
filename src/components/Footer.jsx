@@ -82,7 +82,7 @@ const Footer = () => {
               href="https://instagram.com/твой_логин"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 bg-[#0F0F0F] border border-[#1A1A1A] hover:border-[#FF1E1E] transition-all group rounded-sm text-gray-400 hover:text-white"
+              className="p-2.5 bg-[#0F0F0F] border border-[#1A1A1A] hover:border-[#E1306C] transition-all group rounded-sm text-gray-400 hover:text-white"
             >
               <FontAwesomeIcon icon={faInstagram} className="w-4 h-4" />
             </a>

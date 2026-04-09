@@ -1,6 +1,28 @@
+import { useState } from "react";
 import { X, Plus, Minus, Trash2, ShoppingBag } from "lucide-react";
 
+const cities = [
+  "Алматы",
+  "Астана",
+  "Шымкент",
+  "Караганда",
+  "Актобе",
+  "Тараз",
+  "Павлодар",
+  "Усть-Каменогорск",
+  "Костанай",
+  "Кызылорда",
+  "Петропавловск",
+  "Актау",
+  "Атырау",
+  "Уральск",
+  "Экибастуз",
+  "Туркестан",
+
+];
+
 const Cart = ({ isOpen, onClose, items, updateQty, removeItem, clearCart }) => {
+  const [selectedCity, setSelectedCity] = useState("");
   // Расчет общей суммы всей корзины
   const total = items.reduce((sum, item) => sum + item.price * item.qty, 0);
 
@@ -11,6 +33,10 @@ const Cart = ({ isOpen, onClose, items, updateQty, removeItem, clearCart }) => {
 
   // Функция отправки заказа в WhatsApp
   const checkoutWhatsApp = () => {
+    if (!selectedCity) {
+      alert("Пожалуйста, выберите город для доставки!");
+      return;
+    }
     const phoneNumber = "77471643704"; // ЗАМЕНИ НА СВОЙ НОМЕР БЕЗ + (например: 77071234567)
 
     // Формируем список товаров с детализацией: Цена за шт x Кол-во — Сумма
@@ -21,7 +47,7 @@ const Cart = ({ isOpen, onClose, items, updateQty, removeItem, clearCart }) => {
       })
       .join("\n\n");
 
-    const finalText = `*НОВЫЙ ЗАКАЗ (Brick Cars)*\n\n${itemsList}\n\n*--------------------*\n*ИТОГО К ОПЛАТЕ: ${formatPrice(total)}*\n\n📍 Доставка: Казахстан\n📦 Проверьте наличие и детали сборки.`;
+    const finalText = `*НОВЫЙ ЗАКАЗ (Brick Cars)*\n\n${itemsList}\n\n*--------------------*\n*ИТОГО К ОПЛАТЕ: ${formatPrice(total)}*\n\n📍 Доставка: ${selectedCity}\n📦 Проверьте наличие и детали сборки.`;
 
     // Открываем WhatsApp в новой вкладке
     window.open(
@@ -32,9 +58,12 @@ const Cart = ({ isOpen, onClose, items, updateQty, removeItem, clearCart }) => {
     // 2. Очищаем корзину (ДОБАВЛЕНО)
     clearCart();
 
+    // 2. СБРАСЫВАЕМ ВЫБРАННЫЙ ГОРОД (ДОБАВЛЕНО)
+    setSelectedCity("");
+
     // 3. Закрываем корзину (ДОБАВЛЕНО для удобства)
     onClose();
-  };
+  };;
 
   if (!isOpen) return null;
 
@@ -161,6 +190,55 @@ const Cart = ({ isOpen, onClose, items, updateQty, removeItem, clearCart }) => {
                 </p>
                 <p className="text-[9px] text-gray-500 uppercase font-bold tracking-tighter italic">
                   Доставка по РК
+                </p>
+              </div>
+            </div>
+
+            {/* ВЫБОР ГОРОДА (ДОБАВЛЕНО) */}
+            <div className="mb-6">
+              <label className="text-[10px] uppercase text-gray-500 font-bold tracking-[0.2em] mb-2 block">
+                Город доставки
+              </label>
+              <select
+                value={selectedCity}
+                onChange={(e) => setSelectedCity(e.target.value)}
+                className="w-full bg-black border border-[#1A1A1A] text-white py-3 px-4 font-orbitron text-[11px] uppercase italic outline-none focus:border-[#FF1E1E] transition-colors appearance-none cursor-pointer"
+              >
+                <option value="" disabled>
+                  -- Выберите город --
+                </option>
+                {cities.map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
+
+              {/* ЗАМЕТНОЕ ПРИМЕЧАНИЕ */}
+              <div className="mt-3 p-3 bg-[#111111] border-l-2 border-[#FF1E1E] flex gap-3">
+                <div className="text-[#FF1E1E] shrink-0 mt-0.5">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="16" x2="12" y2="12" />
+                    <line x1="12" y1="8" x2="12.01" y2="8" />
+                  </svg>
+                </div>
+                <p className="text-[10px] text-gray-300 leading-normal font-medium uppercase tracking-tight">
+                  Если вашего города{" "}
+                  <span className="text-white">нет в списке</span> — выберите{" "}
+                  <span className="text-[#FF1E1E] font-bold">Астану</span>. Вы
+                  сможете изменить адрес на нужный прямо в чате WhatsApp перед
+                  отправкой!
                 </p>
               </div>
             </div>
