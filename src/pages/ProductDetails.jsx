@@ -53,7 +53,7 @@ const ProductDetails = ({ addToCart }) => {
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 relative z-10"
+            className="absolute inset-0 w-full h-full object-cover z-10 scale-[1.05] transition-transform duration-500"
           />
         </div>
 
