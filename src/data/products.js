@@ -4,7 +4,7 @@ export const PRODUCTS = [
   {
     id: "w14",
     name: "Mercedes-AMG F1 W14 E Performance",
-    price: 150000,
+    price: 17900,
     category: "F1 Серия",
     image: "/BrickCars/images/w14.JPG",
     description:
@@ -19,7 +19,7 @@ export const PRODUCTS = [
   {
     id: "rb20",
     name: "Red Bull Racing RB20",
-    price: 155000,
+    price: 19900,
     category: "F1 Серия",
     image: "/BrickCars/images/rb20.JPG",
     description:
@@ -34,7 +34,7 @@ export const PRODUCTS = [
   {
     id: "sf24",
     name: "Ferrari SF-24",
-    price: 145000,
+    price: 17900,
     category: "F1 Серия",
     image: "/BrickCars/images/sf24.JPG",
     description:
@@ -49,7 +49,7 @@ export const PRODUCTS = [
   {
     id: "daytona-sp3",
     name: "Ferrari Daytona SP3",
-    price: 320000, // Цена выше, так как деталей почти в 3 раза больше
+    price: 48000, // Цена выше, так как деталей почти в 3 раза больше
     category: "Гиперкар",
     image: "/BrickCars/images/daytona.JPG",
     description:
@@ -64,7 +64,7 @@ export const PRODUCTS = [
   {
     id: "lambo-sian",
     name: "Lamborghini Sián FKP 37",
-    price: 315000, // Сопоставимо с Ferrari Daytona по количеству деталей
+    price: 42000, // Сопоставимо с Ferrari Daytona по количеству деталей
     category: "Гиперкар",
     image: "/BrickCars/images/sian.JPG",
     description:
