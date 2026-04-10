@@ -37,7 +37,7 @@ const Cart = ({ isOpen, onClose, items, updateQty, removeItem, clearCart }) => {
       alert("Пожалуйста, выберите город для доставки!");
       return;
     }
-    const phoneNumber = "77471643704"; // ЗАМЕНИ НА СВОЙ НОМЕР БЕЗ + (например: 77071234567)
+    const phoneNumber = "77081248743"; // ЗАМЕНИ НА СВОЙ НОМЕР БЕЗ + (например: 77071234567)
 
     // Формируем список товаров с детализацией: Цена за шт x Кол-во — Сумма
     const itemsList = items

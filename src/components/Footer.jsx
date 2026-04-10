@@ -79,7 +79,7 @@ const Footer = () => {
           </h4>
           <div className="flex gap-3 mb-8">
             <a
-              href="https://instagram.com/твой_логин"
+              href="https://instagram.com/brickcars.kz"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2.5 bg-[#0F0F0F] border border-[#1A1A1A] hover:border-[#E1306C] transition-all group rounded-sm text-gray-400 hover:text-white"
@@ -87,7 +87,7 @@ const Footer = () => {
               <FontAwesomeIcon icon={faInstagram} className="w-4 h-4" />
             </a>
             <a
-              href="https://wa.me/77XXXXXXXXX"
+              href="https://wa.me/77081248743"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2.5 bg-[#0F0F0F] border border-[#1A1A1A] hover:border-[#25D366] transition-all group rounded-sm text-gray-400 hover:text-white"
