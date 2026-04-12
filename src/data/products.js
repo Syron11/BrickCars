@@ -108,7 +108,7 @@ export const PRODUCTS = [
   },
   {
     id: "mclaren-p1-ultimate",
-    name: "McLaren P1 Ultimate Edition",
+    name: "McLaren P1",
     price: 39900, // Цена уровня топовых гиперкаров (Ferrari Daytona/Lambo)
     category: "Гиперкар",
     image: "/BrickCars/images/p1.JPG",
