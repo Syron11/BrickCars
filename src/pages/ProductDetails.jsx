@@ -11,15 +11,12 @@ import {
 const ProductDetails = ({ addToCart }) => {
   const { id } = useParams();
 
-  // Находим товар в массиве по ID из URL
   const product = PRODUCTS.find((p) => p.id === id);
 
-  // Форматирование цены (например, 150 000 ₸)
   const formatPrice = (price) => {
     return new Intl.NumberFormat("ru-RU").format(price) + " ₸";
   };
 
-  // Если товар не найден
   if (!product) {
     return (
       <div className="pt-40 pb-20 text-center text-white min-h-screen">
@@ -36,7 +33,6 @@ const ProductDetails = ({ addToCart }) => {
 
   return (
     <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto text-white min-h-screen">
-      {/* Кнопка назад */}
       <Link
         to="/collection"
         className="inline-flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-10 uppercase text-[10px] font-black tracking-[0.2em]"
@@ -45,9 +41,7 @@ const ProductDetails = ({ addToCart }) => {
       </Link>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        {/* Левая колонка: Изображение */}
         <div className="aspect-square bg-[#0F0F0F] border border-[#1A1A1A] flex items-center justify-center p-8 md:p-16 group relative overflow-hidden">
-          {/* Декоративный фон за машиной */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#FF1E1E]/5 to-transparent opacity-50"></div>
 
           <img
@@ -57,7 +51,6 @@ const ProductDetails = ({ addToCart }) => {
           />
         </div>
 
-        {/* Правая колонка: Инфо */}
         <div className="flex flex-col">
           <p className="text-[#FF1E1E] font-black uppercase tracking-[0.3em] text-xs mb-4">
             {product.category || "Аутентичная Реплика"}
@@ -66,21 +59,35 @@ const ProductDetails = ({ addToCart }) => {
             {product.name}
           </h1>
 
-          <div className="flex items-center gap-4 mb-8">
-            <span className="text-3xl font-orbitron font-black text-[#FFD700]">
-              {formatPrice(product.price)}
-            </span>
-            <span className="px-3 py-1 bg-[#1A1A1A] text-[9px] uppercase tracking-widest font-bold text-green-500 border border-green-500/30">
-              В наличии
-            </span>
+          {/* ОБНОВЛЕННЫЙ БЛОК ЦЕНЫ */}
+          <div className="flex flex-wrap items-center gap-4 mb-8">
+            <div className="flex flex-col">
+              {product.oldPrice && (
+                <span className="text-white/30 line-through text-lg font-orbitron italic leading-none mb-1">
+                  {formatPrice(product.oldPrice)}
+                </span>
+              )}
+              <span className="text-4xl font-orbitron font-black text-[#FFD700] leading-none">
+                {formatPrice(product.price)}
+              </span>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <span className="px-3 py-1 bg-[#1A1A1A] text-[9px] uppercase tracking-widest font-bold text-green-500 border border-green-500/30 w-fit">
+                В наличии
+              </span>
+              {product.oldPrice && (
+                <span className="bg-[#FF1E1E] text-white text-[9px] px-2 py-1 font-black uppercase italic tracking-tighter">
+                  Выгода {formatPrice(product.oldPrice - product.price)}
+                </span>
+              )}
+            </div>
           </div>
 
           <p className="text-gray-400 text-sm leading-relaxed mb-10 max-w-md">
-            {product.description ||
-              "Коллекционная модель премиум-класса с исключительным вниманием к деталям. Идеальный выбор для истинных ценителей автоспорта."}
+            {product.description}
           </p>
 
-          {/* Характеристики */}
           {product.specs && (
             <div className="grid grid-cols-2 gap-y-6 gap-x-4 mb-10 border-y border-[#1A1A1A] py-8">
               {Object.entries(product.specs).map(([key, value]) => (
@@ -96,7 +103,6 @@ const ProductDetails = ({ addToCart }) => {
             </div>
           )}
 
-          {/* Кнопка добавления */}
           <button
             onClick={() => addToCart(product)}
             className="w-full bg-[#FF1E1E] hover:bg-white hover:text-black text-white py-5 font-orbitron font-black uppercase italic tracking-widest flex items-center justify-center gap-3 transition-all active:scale-[0.98] shadow-[0_0_30px_rgba(255,30,30,0.2)]"
