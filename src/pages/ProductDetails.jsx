@@ -1,17 +1,21 @@
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { PRODUCTS } from "../data/products";
 import {
   ArrowLeft,
   ShoppingBag,
-  ShieldCheck,
-  Truck,
-  RotateCcw,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 const ProductDetails = ({ addToCart }) => {
   const { id } = useParams();
-
   const product = PRODUCTS.find((p) => p.id === id);
+
+  // Состояние для фото и свайпа
+  const [activeImg, setActiveImg] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat("ru-RU").format(price) + " ₸";
@@ -31,6 +35,32 @@ const ProductDetails = ({ addToCart }) => {
     );
   }
 
+  const images = product.images || [product.image];
+
+  // Логика переключения
+  const nextSlide = () => {
+    setActiveImg((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  const prevSlide = () => {
+    setActiveImg((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  // Обработка свайпа
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    if (distance > 50) nextSlide();
+    if (distance < -50) prevSlide();
+  };
+
   return (
     <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto text-white min-h-screen">
       <Link
@@ -41,16 +71,73 @@ const ProductDetails = ({ addToCart }) => {
       </Link>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        <div className="aspect-square bg-[#0F0F0F] border border-[#1A1A1A] flex items-center justify-center p-8 md:p-16 group relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#FF1E1E]/5 to-transparent opacity-50"></div>
+        {/* ЛЕВАЯ КОЛОНКА: ГАЛЕРЕЯ СО СВАЙПОМ */}
+        <div className="flex flex-col gap-4">
+          <div
+            className="aspect-square bg-[#0F0F0F] border border-[#1A1A1A] flex items-center justify-center p-4 md:p-8 group relative overflow-hidden touch-pan-y"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#FF1E1E]/5 to-transparent opacity-50"></div>
 
-          <img
-            src={product.image}
-            alt={product.name}
-            className="absolute inset-0 w-full h-full object-cover z-10 scale-[1.05] transition-transform duration-500"
-          />
+            <img
+              src={images[activeImg]}
+              alt={product.name}
+              key={activeImg}
+              className="w-full h-full object-cover z-10 transition-all duration-500 animate-in fade-in zoom-in-95 pointer-events-none"
+            />
+
+            {/* Стрелки для ПК */}
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={prevSlide}
+                  className="hidden lg:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-[#FF1E1E] text-white p-2 transition-all opacity-0 group-hover:opacity-100 border border-white/10"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="hidden lg:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-[#FF1E1E] text-white p-2 transition-all opacity-0 group-hover:opacity-100 border border-white/10"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+                <div className="absolute bottom-4 right-4 z-20 bg-black/60 px-3 py-1 text-[10px] font-orbitron text-white/70 backdrop-blur-sm border border-white/5 uppercase">
+                  {activeImg + 1} / {images.length}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Миниатюры */}
+          {images.length > 1 && (
+            <div className="grid grid-cols-5 gap-3">
+              {images.map((img, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveImg(index)}
+                  className={`aspect-square bg-[#0F0F0F] border-2 transition-all duration-300 overflow-hidden relative group ${
+                    activeImg === index
+                      ? "border-[#FF1E1E]"
+                      : "border-[#1A1A1A] hover:border-white/20"
+                  }`}
+                >
+                  <img
+                    src={img}
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
+                  {activeImg !== index && (
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors"></div>
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
+        {/* ПРАВАЯ КОЛОНКА: ВСЯ ИНФА */}
         <div className="flex flex-col">
           <p className="text-[#FF1E1E] font-black uppercase tracking-[0.3em] text-xs mb-4">
             {product.category || "Аутентичная Реплика"}
@@ -59,7 +146,6 @@ const ProductDetails = ({ addToCart }) => {
             {product.name}
           </h1>
 
-          {/* ОБНОВЛЕННЫЙ БЛОК ЦЕНЫ */}
           <div className="flex flex-wrap items-center gap-4 mb-8">
             <div className="flex flex-col">
               {product.oldPrice && (

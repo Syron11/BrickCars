@@ -19,7 +19,7 @@ const ProductCard = ({ product, addToCart }) => (
         <div className="w-full h-full bg-gradient-to-t from-[#FF1E1E]/20 to-transparent"></div>
       </div>
       <img
-        src={product.image}
+        src={product.images ? product.images[0] : product.image}
         alt={product.name}
         className="w-full h-full object-cover transition-transform duration-700 lg:group-hover:scale-110 relative z-10"
       />

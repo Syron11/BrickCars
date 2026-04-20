@@ -114,7 +114,7 @@ const Cart = ({ isOpen, onClose, items, updateQty, removeItem, clearCart }) => {
                 {/* Превью товара */}
                 <div className="w-24 h-24 bg-[#0F0F0F] border border-[#1A1A1A] p-2 flex-shrink-0 relative overflow-hidden">
                   <img
-                    src={item.image}
+                    src={item.images ? item.images[0] : item.image}
                     alt={item.name}
                     className="w-full h-full object-contain relative z-10"
                   />
